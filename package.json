@@ -1,5 +1,13 @@
 {
+  "name": "dharaa",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix website run dev",
+    "build": "npm --prefix website ci && npm --prefix website run build",
+    "preview": "npm --prefix website run preview"
+  },
   "dependencies": {
     "docx": "^9.7.1"
   }
 }
+

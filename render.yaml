@@ -1,0 +1,35 @@
+# Render.com — Static Site
+# Dashboard: New → Static Site → Connect this repo
+# Or auto-detected from this file (Blueprint)
+#
+# Manual settings if not using Blueprint:
+#   Root Directory:     website
+#   Build Command:      npm ci && npm run build
+#   Publish Directory:  out
+
+services:
+  - type: web
+    name: dharaa-website
+    runtime: static
+    rootDir: website
+    buildCommand: npm ci && npm run build
+    staticPublishPath: out
+    pullRequestPreviewsEnabled: true
+    headers:
+      - path: /_next/static/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /images/*
+        name: Cache-Control
+        value: public, max-age=604800, stale-while-revalidate=86400
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: X-Frame-Options
+        value: SAMEORIGIN
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+    # Multi-page static export — real HTML files under out/
+    # Do not SPA-rewrite all routes to index/404
